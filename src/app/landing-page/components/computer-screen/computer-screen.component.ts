@@ -19,6 +19,11 @@ export class ComputerScreenComponent {
   @ViewChild('container') parallaxRef: ElementRef;
   @ViewChildren('transformRef') transformRef: QueryList<any>;
 
+  // Credit to Stephen Healey for parallax animation code.
+  // Check out the original video here: https://www.youtube.com/watch?v=ftYffhOA84A
+  // Title: Angular - 3D Animation on mouse move.
+  // Author: Developer〈Web〉
+  // Posted Jan 10, 2021
   @HostListener('mousemove', ['$event']) 
   onMouseMove(event: MouseEvent): void {
     if (event) {
