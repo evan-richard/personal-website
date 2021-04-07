@@ -1,0 +1,41 @@
+.container {
+    background-color: #8E91AD;
+    padding: 4rem 2rem;
+    width: 100%;
+    height: 200vh;
+}
+
+.text-container {
+    cursor: default;
+    color: #ffffff;
+    margin: 0 auto;
+    max-width: 68.75rem;
+    height: 100%;
+
+    &__exciting {
+        font-family: "Lalezar", sans-serif;
+    }
+
+    &__arrow-down {
+        color: #F1D5C1;
+        font-size: 4rem;
+    }
+
+    &__description {
+        font-size: 1.75rem;
+
+        &__letter {
+            display: inline-block;
+            word-wrap: break-word;
+        }
+    }
+}
+
+.but {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3rem;
+    height: 3rem;
+    background-color: white;
+}

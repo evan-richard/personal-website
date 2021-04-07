@@ -1,0 +1,40 @@
+.container {
+    cursor: none;
+    width: 100vw;
+    height: 100vh;
+
+    &__desktop {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        object-fit: cover;
+    }
+
+    &__cursor {
+        transform: rotate(-90deg);
+        position: absolute;
+        margin: auto;
+        top: -18rem;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+}
+
+.accessories {
+    margin-top: -3rem;
+
+    &__keyboard {
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 2.5rem;
+        max-height: 10rem;
+        object-fit: contain;
+    }
+
+    &__mouse {
+        margin: auto 0;
+        max-height: 3rem;
+        object-fit: contain;
+    }
+}

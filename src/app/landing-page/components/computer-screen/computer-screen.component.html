@@ -1,0 +1,8 @@
+<section class="container" fxLayout="column" #container>
+    <ion-icon name="navigate" class="container__cursor" #cursorRef></ion-icon>
+    <img [@desktopScale]="viewingState" src="assets/images/desktop.png" alt="Mac Desktop" class="container__desktop" #desktopRef>
+    <article class="accessories" fxLayout="row" fxLayoutAlign="center">
+        <img src="assets/images/keyboard.png" alt="Keyboard" class="accessories__keyboard">
+        <img src="assets/images/mouse.png" alt="Mouse" class="accessories__mouse" #mouseRef>
+    </article>
+</section>
