@@ -48,14 +48,6 @@ export class WelcomeLetterComponent implements OnInit, AfterViewInit {
     }
   }
 
-  clickHandler() {
-    console.log('click');
-    this.characterAnimations[5] = "inRange";
-    this.characterAnimations[6] = "inRange";
-    this.characterAnimations[7] = "inRange";
-    this.characterAnimations[8] = "inRange";
-  }
-
   constructor(private renderer: Renderer2) { }
 
   ngOnInit(): void { }
