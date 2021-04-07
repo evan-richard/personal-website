@@ -1,21 +1,21 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
-import { PARAGRAPH_TEXT } from '@landing/constants';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { IN_RANGE_STATE, LETTER_IN_RANGE_THRES, LETTER_OFFSET, NOT_IN_RANGE_STATE, PARAGRAPH_TEXT } from '@landing/constants';
 
 @Component({
   selector: 'app-welcome-letter',
   animations: [
     trigger('letterAnimation', [
-      state('notInRange', style({
+      state(NOT_IN_RANGE_STATE, style({
         transform: 'translate()'
       })),
-      state('inRange', style({
+      state(IN_RANGE_STATE, style({
         transform: 'translate(0.5rem, 0.5rem)'
       })),
-      transition('notInRange => inRange', [
+      transition(`${NOT_IN_RANGE_STATE} => ${IN_RANGE_STATE}`, [
         animate('0.3s')
       ]),
-      transition('inRange => notInRange', [
+      transition(`${IN_RANGE_STATE} => ${NOT_IN_RANGE_STATE}`, [
         animate('0.3s')
       ]),
     ]),
@@ -38,44 +38,25 @@ export class WelcomeLetterComponent implements OnInit, AfterViewInit {
   onMouseMove(event: MouseEvent): void {
     if (event) {
       Array.from((this.paragraphRef.nativeElement.children)).forEach((charElement: HTMLElement, index) => {
-        if (Math.abs((charElement.offsetTop + 20) - event.clientY) < 15
-          && Math.abs((charElement.offsetLeft + 20) - event.clientX) < 15) {
-          this.characterAnimations[index] = "inRange";
+        if (Math.abs((charElement.offsetTop + LETTER_OFFSET) - event.clientY) < LETTER_IN_RANGE_THRES
+          && Math.abs((charElement.offsetLeft + LETTER_OFFSET) - event.clientX) < LETTER_IN_RANGE_THRES) {
+          this.characterAnimations[index] = IN_RANGE_STATE;
         } else {
-          this.characterAnimations[index] = "notInRange";
+          this.characterAnimations[index] = NOT_IN_RANGE_STATE;
         }
       });
     }
   }
 
-  constructor(private renderer: Renderer2) { }
+  constructor() { }
 
   ngOnInit(): void { }
 
   ngAfterViewInit(): void {
-    let elements = ""
     for (let i = 0; i < PARAGRAPH_TEXT.length; i++){
-      this.characterAnimations.push("notInRange");
-      const character = PARAGRAPH_TEXT.charAt(i);
-      this.characters.push(character);
-      let el: string;
-      if (character === '\n') {
-        el = '<br />';
-        // el = this.renderer.createElement('br');
-      } else {
-        if (character !== ' ') {
-          el = `<span [@letterAnimation]="characterAnimations[${i}]">${character}</span>`;
-        } else {
-          el = `<span>${character}</span>`
-        }
-        // el = this.renderer.createElement('span');
-        // el.setAttribute('@letterAnimation', this.lettersInRange[i].inRange)
-        // el.textContent = character;
-      }
-      elements += el;
-      // this.renderer.appendChild(this.paragraphRef.nativeElement, el);
+      this.characterAnimations.push(NOT_IN_RANGE_STATE);
+      this.characters.push(PARAGRAPH_TEXT.charAt(i));
     }
-    // this.paragraphRef.nativeElement.innerHTML = elements;
   }
 
 }
