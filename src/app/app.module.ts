@@ -7,13 +7,15 @@ import { ComputerScreenComponent, LandingPageComponent, WelcomeLetterComponent }
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IonicModule } from '@ionic/angular';
+import { AnimatedTextComponent } from './shared/components/animated-text/animated-text.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ComputerScreenComponent,
     LandingPageComponent,
-    WelcomeLetterComponent
+    WelcomeLetterComponent,
+    AnimatedTextComponent
   ],
   imports: [
     BrowserModule,

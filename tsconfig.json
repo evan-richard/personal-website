@@ -18,7 +18,9 @@
     ],
     "paths": {
       "@landing/components": ["src/app/landing-page/components/index"],
-      "@landing/constants": ["src/app/landing-page/constants/index"]
+      "@landing/constants": ["src/app/landing-page/constants/index"],
+      "@shared/components": ["src/app/shared/components/index"],
+      "@shared/constants": ["src/app/shared/constants/index"],
     }
   },
   "angularCompilerOptions": {

@@ -1,0 +1,9 @@
+<p class="text-container" #paragraphRef>
+    <span *ngFor="let c of characters;let i = index">
+        <span *ngIf="c !== '\n'; else lineBreak"
+            [ngClass]="{
+                'text-container__letter': c !== ' '
+            }" [@waveAnimation]="{value: characterAnimations[i].value, params: {xOffset: characterAnimations[i].xOffset, yOffset: characterAnimations[i].yOffset}}">{{ c }}</span>
+        <ng-template #lineBreak><br /></ng-template>
+    </span>
+</p>
