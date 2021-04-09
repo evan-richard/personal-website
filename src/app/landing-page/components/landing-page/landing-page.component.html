@@ -1,1 +1,4 @@
-<app-welcome-letter [viewingState]="viewingState" (stateChange)="onViewingStateChange($event)"></app-welcome-letter>
+<section class="container" fxLayout="column" (scroll)="onScroll($event)">
+    <app-welcome-letter [scrollPosition]="scrollPosition"></app-welcome-letter>
+    <app-computer-screen [scrollPosition]="scrollPosition"></app-computer-screen>
+</section>

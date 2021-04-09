@@ -8,10 +8,12 @@ import { VIEWING_STATES } from '@landing/constants';
 })
 export class LandingPageComponent implements OnInit {
 
-  viewingState: string = VIEWING_STATES.COMPUTER_SCREEN;
+  scrollPosition: number = 0;
 
-  onViewingStateChange(newState: string): void {
-    this.viewingState = newState;
+  onScroll(event): void {
+    if (event) {
+      this.scrollPosition = event.srcElement.scrollTop;
+    }
   }
 
   constructor() { }

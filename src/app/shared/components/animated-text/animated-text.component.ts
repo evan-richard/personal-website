@@ -46,19 +46,17 @@ export class AnimatedTextComponent implements OnInit {
     }
   }
 
-  @HostListener('document:mousedown', ['$event']) 
-  onMouseDown(event: MouseEvent): void {
+  onDown(event: MouseEvent | TouchEvent): void {
     if (event) {
-      Array.from((this.paragraphRef.nativeElement.children)).forEach((charElement: HTMLElement, index) => {
+      Array.from((this.paragraphRef.nativeElement.children)).forEach((_, index) => {
         this.characterAnimations[index].value = IN_RANGE_STATE;
-        this.characterAnimations[index].xOffset = Math.cos(event.pageX/(charElement.offsetLeft + LETTER_OFFSET));
-        this.characterAnimations[index].yOffset = Math.sin(event.pageY/(charElement.offsetTop + LETTER_OFFSET));
+        this.characterAnimations[index].xOffset = Math.random() * 2 - 1;
+        this.characterAnimations[index].yOffset = Math.random() * 2 - 1;
       });
     }
   }
 
-  @HostListener('document:mouseup', ['$event']) 
-  onMouseUp(event: MouseEvent): void {
+  onUp(event: MouseEvent | TouchEvent): void {
     if (event) {
       Array.from((this.paragraphRef.nativeElement.children)).forEach((_, index) => {
         this.characterAnimations[index].value = NOT_IN_RANGE_STATE;
@@ -67,6 +65,26 @@ export class AnimatedTextComponent implements OnInit {
       });
     }
   }
+
+  @HostListener('document:touchstart', ['$event'])
+  onTouchDown(event: TouchEvent): void {
+    this.onDown(event);
+  }
+
+  @HostListener('document:touchend', ['$event'])
+  onTouchUp(event: TouchEvent): void {
+    this.onUp(event);
+  }
+
+  // @HostListener('document:mousedown', ['$event'])
+  // onMouseDown(event: MouseEvent): void {
+  //   this.onDown(event);
+  // }
+
+  // @HostListener('document:mouseup', ['$event'])
+  // onMouseUp(event: MouseEvent): void {
+  //   this.onUp(event);
+  // }
 
   @ViewChild('paragraphRef') paragraphRef: ElementRef;
 

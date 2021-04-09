@@ -1,23 +1,38 @@
 .container {
     cursor: none;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
+    padding: 80rem 0;
+}
+
+.content {
+    opacity: 0;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 68.75rem;
+    height: 30rem;
+
+    &__name {
+        margin-left: 6rem;
+    }
 
     &__desktop {
+        margin-top: -4rem;
         display: block;
-        margin-left: auto;
-        margin-right: auto;
+        width: 30rem;
+        height: 30rem;
         object-fit: cover;
     }
 
     &__cursor {
         transform: rotate(-90deg);
-        position: absolute;
-        margin: auto;
-        top: -18rem;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        position: relative;
+        top: 4.5rem;
+        left: 15rem;
     }
 }
 

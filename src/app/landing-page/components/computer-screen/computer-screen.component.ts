@@ -1,46 +1,42 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnChanges, ViewChild } from '@angular/core';
 import { VIEWING_STATES } from '@landing/constants';
+import { NOT_VISIBLE, VISIBLE } from '@shared/constants';
 
 @Component({
   selector: 'app-computer-screen',
   animations: [
-    trigger('desktopScale', [
-      state(VIEWING_STATES.COMPUTER_SCREEN, style({
-        maxWidth: '30rem',
-        width: 'unset',
-        transform: 'translate()'
+    trigger('bioAnimation', [
+      state(NOT_VISIBLE, style({
+        opacity: 0,
       })),
-      state(VIEWING_STATES.NEW_MESSAGE, style({
-        maxWidth: '120%',
-        width: '112%',
-        transform: 'translate(-4.5rem, -4rem)'
+      state(VISIBLE, style({
+        opacity: 1,
       })),
-      transition(`${VIEWING_STATES.COMPUTER_SCREEN} => ${VIEWING_STATES.NEW_MESSAGE}`, [
-        animate('0.5s')
+      transition(`${NOT_VISIBLE} => ${VISIBLE}`, [
+        animate('.75s')
       ]),
-      transition(`${VIEWING_STATES.NEW_MESSAGE} => ${VIEWING_STATES.COMPUTER_SCREEN}`, [
-        animate('0.5s')
+      transition(`${VISIBLE} => ${NOT_VISIBLE}`, [
+        animate('.75s')
       ]),
     ]),
   ],
   templateUrl: './computer-screen.component.html',
   styleUrls: ['./computer-screen.component.scss']
 })
-export class ComputerScreenComponent {
+export class ComputerScreenComponent implements OnChanges {
 
   private cursorConfig: ConfigModel = {
-    transform: { x: -190, y: -100 }
+    transform: { x: -190, y: -190 }
   };
   private mouseConfig: ConfigModel = {
     transform: { x: -50, y: -50 }
   };
 
-  @Input() viewingState: string;
-  @Output() stateChange: EventEmitter<string> = new EventEmitter<string>();
+  @Input() scrollPosition: number;
 
-  @ViewChild('container') parallaxRef: ElementRef;
-  @ViewChild('desktopRef') desktopRef: ElementRef;
+  @ViewChild('desktopContainer') parallaxRef: ElementRef;
+  @ViewChild('contentRef') contentRef: ElementRef;
   @ViewChild('mouseRef') mouseRef: ElementRef;
   @ViewChild('cursorRef') cursorRef: any;
 
@@ -59,40 +55,38 @@ export class ComputerScreenComponent {
       const y = this.mapRange(a1, a2, b1, b2, event.y);
 
       if (x <= 1 && x >= -1 && y <= 1 && y >= -1) {
-        this.applyStyles({ x, y })
+        this.applyStyles({ x, y });
       }
     }
   }
 
-  @HostListener('mouseup', ['$event']) 
-  onMouseUp(event: MouseEvent): void {
-    if (event) {
-      // const letterMaxX = 0.229 * this.desktopRef.nativeElement.width;
-      // const letterMinX = -0.04583 * this.desktopRef.nativeElement.width;
-      // const letterMaxY = -0.075 * this.desktopRef.nativeElement.width;
-      // const letterMinY = -0.1897 * this.desktopRef.nativeElement.width;
-      // console.log(`X: ${this.cursorRef.el.style.x}, Y: ${this.cursorRef.el.style.y}`)
-      // console.log(`MinX: ${letterMinX}, MaxX: ${letterMaxX}, minY: ${letterMinY}, maxY: ${letterMaxY}`)
-      // if (this.cursorRef.el.style.x <= letterMaxX
-      //   && this.cursorRef.el.style.x >= letterMinX
-      //   && this.cursorRef.el.style.y <= letterMaxY
-      //   && this.cursorRef.el.style.y <= letterMinY) {
-      //   console.log(this.desktopRef.nativeElement.width);
-      //   console.log(this.cursorRef.el.style.y);
-      // }
-      this.stateChange.emit(VIEWING_STATES.NEW_MESSAGE);
-    }
-  }
+  bioVisibility = NOT_VISIBLE;
+  isContentVisible = false;
 
   constructor() {}
+
+  ngOnChanges(): void {
+    if (!this.isContentVisible && this.scrollPosition >= 1800) {
+      this.isContentVisible = true;
+      this.bioVisibility = VISIBLE;
+    } else if (this.isContentVisible && this.scrollPosition < 1800) {
+      this.isContentVisible = false;
+      this.bioVisibility = NOT_VISIBLE
+    }
+
+    if (this.scrollPosition >= 1900) {
+      const opacity = (this.scrollPosition - 1900) / 500;
+      this.contentRef.nativeElement.style.opacity = opacity > 1 ? 1 : opacity;
+    }
+  }
 
   private applyStyles(pos: PosModel2D): void {
     // Apply cursor animation
     let x = this.cursorConfig.transform.x * -pos.x > 190
       ? 190 : ((this.cursorConfig.transform.x * -pos.x < -190)
         ? -190 : this.cursorConfig.transform.x * -pos.x);
-    let y = this.cursorConfig.transform.y * pos.y > 100
-      ? 100 : ((this.cursorConfig.transform.y * pos.y < -100)
+    let y = this.cursorConfig.transform.y * pos.y > 200
+      ? 200 : ((this.cursorConfig.transform.y * pos.y < -100)
         ? -100 : this.cursorConfig.transform.y * pos.y);
     this.cursorRef.el.style.x = x;
     this.cursorRef.el.style.y = y;

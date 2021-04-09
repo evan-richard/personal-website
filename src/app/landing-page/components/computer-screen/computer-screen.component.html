@@ -1,8 +1,19 @@
-<section class="container" fxLayout="column" #container>
-    <ion-icon name="navigate" class="container__cursor" #cursorRef></ion-icon>
-    <img [@desktopScale]="viewingState" src="assets/images/desktop.png" alt="Mac Desktop" class="container__desktop" #desktopRef>
-    <article class="accessories" fxLayout="row" fxLayoutAlign="center">
-        <img src="assets/images/keyboard.png" alt="Keyboard" class="accessories__keyboard">
-        <img src="assets/images/mouse.png" alt="Mouse" class="accessories__mouse" #mouseRef>
+<section class="container" #desktopContainer>
+    <article *ngIf="isContentVisible" class="content" fxLayout="row" fxLayoutGap="10rem" #contentRef>
+        <section class="content__desktop" fxLayout="column" fxFlex="40">
+            <h2 class="content__name">Evan Richard</h2>
+            <ion-icon name="navigate" class="content__cursor" #cursorRef></ion-icon>
+            <img src="assets/images/desktop.png" alt="Mac Desktop" class="content__desktop" #desktopRef>
+            <article class="accessories" fxLayout="row" fxLayoutAlign="center">
+                <img src="assets/images/keyboard.png" alt="Keyboard" class="accessories__keyboard">
+                <img src="assets/images/mouse.png" alt="Mouse" class="accessories__mouse" #mouseRef>
+            </article>
+        </section>
+        <section class="content__bio" fxLayout="column" fxFlex="40">
+            <p>I graduated from the A. James Clark School of Engineering (Go Terps!)</p>
+            <p>I specialize in full-stack application development and cloud architecture.</p>
+            <p>I currently work at Raytheon Technologies, where I write software for people who fly planes.</p>
+            <p>My goal is to go to business school. There, I will learn to network and create environments conducive to growth.</p>
+        </section>
     </article>
 </section>
