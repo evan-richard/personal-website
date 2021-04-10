@@ -27,7 +27,7 @@ import { NOT_VISIBLE, VISIBLE } from '@shared/constants';
 export class ComputerScreenComponent implements OnChanges {
 
   private cursorConfig: ConfigModel = {
-    transform: { x: -190, y: -190 }
+    transform: { x: -190, y: -300 }
   };
   private mouseConfig: ConfigModel = {
     transform: { x: -50, y: -50 }
@@ -49,10 +49,10 @@ export class ComputerScreenComponent implements OnChanges {
   onMouseMove(event: MouseEvent): void {
     if (event) {
       const rect = this.parallaxRef.nativeElement.getBoundingClientRect();
-      let a1 = rect.left; let a2 = rect.right; let b1 = -1; let b2 = 1;
-      const x = this.mapRange(a1, a2, b1, b2, event.x);
-      a1 = rect.top; a2 = rect.bottom; b1 = 1; b2 = -1;
-      const y = this.mapRange(a1, a2, b1, b2, event.y);
+      let a1 = 0; let a2 = rect.width; let b1 = -1; let b2 = 1;
+      const x = this.mapRange(a1, a2, b1, b2, event.screenX);
+      a1 = 0; a2 = rect.height; b1 = 1; b2 = -1;
+      const y = this.mapRange(a1, a2, b1, b2, event.screenY);
 
       if (x <= 1 && x >= -1 && y <= 1 && y >= -1) {
         this.applyStyles({ x, y });
@@ -85,17 +85,18 @@ export class ComputerScreenComponent implements OnChanges {
     let x = this.cursorConfig.transform.x * -pos.x > 190
       ? 190 : ((this.cursorConfig.transform.x * -pos.x < -190)
         ? -190 : this.cursorConfig.transform.x * -pos.x);
-    let y = this.cursorConfig.transform.y * pos.y > 200
-      ? 200 : ((this.cursorConfig.transform.y * pos.y < -100)
-        ? -100 : this.cursorConfig.transform.y * pos.y);
+    let y = this.cursorConfig.transform.y * pos.y > 400
+      ? 400 : ((this.cursorConfig.transform.y * pos.y < -400)
+        ? -400 : this.cursorConfig.transform.y * pos.y);
     this.cursorRef.el.style.x = x;
     this.cursorRef.el.style.y = y;
+    this.cursorRef.el.style.opacity = 1;
     this.cursorRef.el.style.transform = `translate(${x}px, ${y}px) rotate(-90deg)`
 
     // Apply mouse animation
     const element = this.mouseRef.nativeElement as HTMLElement;
     x = this.mouseConfig.transform.x * -pos.x;
-    y = this.mouseConfig.transform.y * pos.y;
+    y = this.mouseConfig.transform.y * pos.y + 75;
     element.style.transform = `translate(${x}px, ${y}px)`
   }
 

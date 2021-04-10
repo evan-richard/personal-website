@@ -28,28 +28,29 @@ export class AnimatedTransitionBarsComponent implements OnInit, AfterViewInit, O
       }
       const someHeight = Math.floor(Math.random() * 21) + 3;
       block.nativeElement.style.height = `${someHeight}rem`;
-    })
-    console.log(this.animationDirection);
+    });
   }
 
   ngOnChanges(): void {
-    const transitionThreshold = this.transitionRef.nativeElement.offsetTop - 600;
-    if (this.scrollPosition >= transitionThreshold && this.scrollPosition <= transitionThreshold + 1000) {
-      this.transitionBlockRef.forEach((block, index) => {
-        let newHeight;
-        const currentBlockHeight = parseFloat(block.nativeElement.style.height.slice(0, block.nativeElement.style.height.length - 3));
-        if (this.animationDirection[index] === ANIMATED_UP) {
-          newHeight = currentBlockHeight + ((this.scrollPosition - transitionThreshold) / 4500) >= 23 ? 23 : currentBlockHeight + (this.scrollPosition - transitionThreshold) / 4500;
-        } else {
-          newHeight = currentBlockHeight + (transitionThreshold - this.scrollPosition) / 4500 <= 3 ? 3 : currentBlockHeight + (transitionThreshold - this.scrollPosition) / 4500;
-        }
-        if (newHeight === 23) {
-          this.animationDirection[index] = ANIMATED_DOWN;
-        } else if (newHeight === 3) {
-          this.animationDirection[index] = ANIMATED_UP;
-        }
-        block.nativeElement.style.height = `${newHeight}rem`;
-      })
+    if (this.transitionRef) {
+      const transitionThreshold = this.transitionRef.nativeElement.offsetTop - 600;
+      if (this.scrollPosition >= transitionThreshold && this.scrollPosition <= transitionThreshold + 1000) {
+        this.transitionBlockRef.forEach((block, index) => {
+          let newHeight;
+          const currentBlockHeight = parseFloat(block.nativeElement.style.height.slice(0, block.nativeElement.style.height.length - 3));
+          if (this.animationDirection[index] === ANIMATED_UP) {
+            newHeight = currentBlockHeight + ((this.scrollPosition - transitionThreshold) / 4500) >= 23 ? 23 : currentBlockHeight + (this.scrollPosition - transitionThreshold) / 4500;
+          } else {
+            newHeight = currentBlockHeight + (transitionThreshold - this.scrollPosition) / 4500 <= 3 ? 3 : currentBlockHeight + (transitionThreshold - this.scrollPosition) / 4500;
+          }
+          if (newHeight === 23) {
+            this.animationDirection[index] = ANIMATED_DOWN;
+          } else if (newHeight === 3) {
+            this.animationDirection[index] = ANIMATED_UP;
+          }
+          block.nativeElement.style.height = `${newHeight}rem`;
+        });
+      }
     }
   }
 }

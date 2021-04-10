@@ -1,4 +1,9 @@
 <section class="container" #desktopContainer>
+    <article class="decorations" fxLayout="column" fxLayoutGap="60rem">
+        <span class="decorations__design-label">Design</span>
+        <span class="decorations__deploy-label">Deploy</span>
+        <span class="decorations__develop-label">Develop</span>
+    </article>
     <article *ngIf="isContentVisible" class="content" fxLayout="row" fxLayoutGap="10rem" #contentRef>
         <section class="content__desktop" fxLayout="column" fxFlex="40">
             <h2 class="content__name">Evan Richard</h2>
