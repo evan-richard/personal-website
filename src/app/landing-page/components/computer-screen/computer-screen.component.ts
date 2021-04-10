@@ -81,23 +81,29 @@ export class ComputerScreenComponent implements OnChanges {
   }
 
   private applyStyles(pos: PosModel2D): void {
+    let x;
+    let y;
     // Apply cursor animation
-    let x = this.cursorConfig.transform.x * -pos.x > 190
-      ? 190 : ((this.cursorConfig.transform.x * -pos.x < -190)
-        ? -190 : this.cursorConfig.transform.x * -pos.x);
-    let y = this.cursorConfig.transform.y * pos.y > 400
-      ? 400 : ((this.cursorConfig.transform.y * pos.y < -400)
-        ? -400 : this.cursorConfig.transform.y * pos.y);
-    this.cursorRef.el.style.x = x;
-    this.cursorRef.el.style.y = y;
-    this.cursorRef.el.style.opacity = 1;
-    this.cursorRef.el.style.transform = `translate(${x}px, ${y}px) rotate(-90deg)`
+    if (this.cursorRef) {
+      x = this.cursorConfig.transform.x * -pos.x > 190
+        ? 190 : ((this.cursorConfig.transform.x * -pos.x < -190)
+          ? -190 : this.cursorConfig.transform.x * -pos.x);
+      y = this.cursorConfig.transform.y * pos.y > 400
+        ? 400 : ((this.cursorConfig.transform.y * pos.y < -400)
+          ? -400 : this.cursorConfig.transform.y * pos.y);
+      this.cursorRef.el.style.x = x;
+      this.cursorRef.el.style.y = y;
+      this.cursorRef.el.style.opacity = 1;
+      this.cursorRef.el.style.transform = `translate(${x}px, ${y}px) rotate(-90deg)`;
+    }
 
     // Apply mouse animation
-    const element = this.mouseRef.nativeElement as HTMLElement;
-    x = this.mouseConfig.transform.x * -pos.x;
-    y = this.mouseConfig.transform.y * pos.y + 75;
-    element.style.transform = `translate(${x}px, ${y}px)`
+    if (this.mouseRef) {
+      const element = this.mouseRef.nativeElement as HTMLElement;
+      x = this.mouseConfig.transform.x * -pos.x;
+      y = this.mouseConfig.transform.y * pos.y + 75;
+      element.style.transform = `translate(${x}px, ${y}px)`;
+    }
   }
 
   private mapRange(a1: number, a2: number, b1: number, b2: number, value: number): number {
