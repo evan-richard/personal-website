@@ -11,6 +11,12 @@
     margin: 0 auto;
     max-width: 68.75rem;
     height: 100%;
+    padding-bottom: 10rem;
+
+    &--mobile {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
 
     &__exciting {
         font-family: "Lalezar", sans-serif;

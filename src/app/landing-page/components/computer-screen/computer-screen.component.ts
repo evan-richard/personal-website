@@ -5,29 +5,13 @@ import { NOT_VISIBLE, VISIBLE } from '@shared/constants';
 
 @Component({
   selector: 'app-computer-screen',
-  animations: [
-    trigger('bioAnimation', [
-      state(NOT_VISIBLE, style({
-        opacity: 0,
-      })),
-      state(VISIBLE, style({
-        opacity: 1,
-      })),
-      transition(`${NOT_VISIBLE} => ${VISIBLE}`, [
-        animate('.75s')
-      ]),
-      transition(`${VISIBLE} => ${NOT_VISIBLE}`, [
-        animate('.75s')
-      ]),
-    ]),
-  ],
   templateUrl: './computer-screen.component.html',
   styleUrls: ['./computer-screen.component.scss']
 })
 export class ComputerScreenComponent implements OnChanges {
 
   private cursorConfig: ConfigModel = {
-    transform: { x: -190, y: -300 }
+    transform: { x: -180, y: -350 }
   };
   private mouseConfig: ConfigModel = {
     transform: { x: -50, y: -50 }
@@ -39,6 +23,8 @@ export class ComputerScreenComponent implements OnChanges {
   @ViewChild('contentRef') contentRef: ElementRef;
   @ViewChild('mouseRef') mouseRef: ElementRef;
   @ViewChild('cursorRef') cursorRef: any;
+  @ViewChild('firstDecorationLabel') firstDecorationRef: ElementRef;
+  @ViewChild('lastDecorationLabel') lastDecorationRef: ElementRef;
 
   // Credit to Stephen Healey for parallax animation code.
   // Check out the original video here: https://www.youtube.com/watch?v=ftYffhOA84A
@@ -60,23 +46,23 @@ export class ComputerScreenComponent implements OnChanges {
     }
   }
 
-  bioVisibility = NOT_VISIBLE;
-  isContentVisible = false;
-
   constructor() {}
 
   ngOnChanges(): void {
-    if (!this.isContentVisible && this.scrollPosition >= 1800) {
-      this.isContentVisible = true;
-      this.bioVisibility = VISIBLE;
-    } else if (this.isContentVisible && this.scrollPosition < 1800) {
-      this.isContentVisible = false;
-      this.bioVisibility = NOT_VISIBLE
+    if (this.scrollPosition < this.firstDecorationRef.nativeElement.offsetTop + 1000) {
+      this.contentRef.nativeElement.style.opacity = 0;
     }
 
-    if (this.scrollPosition >= 1900) {
-      const opacity = (this.scrollPosition - 1900) / 500;
+    if (this.scrollPosition >= this.firstDecorationRef.nativeElement.offsetTop + 1000
+          && this.scrollPosition < this.lastDecorationRef.nativeElement.offsetTop + 1500) {
+    // if (this.scrollPosition >= 1900 && this.scrollPosition < 5000) {
+      const opacity = (this.scrollPosition - (this.firstDecorationRef.nativeElement.offsetTop + 1000)) / 500;
       this.contentRef.nativeElement.style.opacity = opacity > 1 ? 1 : opacity;
+    }
+
+    if (this.scrollPosition >= this.lastDecorationRef.nativeElement.offsetTop + 1500) {
+      const opacity = 1 - (this.scrollPosition - (this.lastDecorationRef.nativeElement.offsetTop + 1500)) / 500;
+      this.contentRef.nativeElement.style.opacity = opacity < 0 ? 0 : opacity;
     }
   }
 

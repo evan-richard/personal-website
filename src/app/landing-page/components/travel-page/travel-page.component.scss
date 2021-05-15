@@ -1,0 +1,32 @@
+.container {
+    background-color: #000000;
+    position: relative;
+    width: 100vw;
+    height: 500rem;
+    overflow-x: hidden;
+    opacity: 0;
+    padding-top: 50rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.introduction {
+    color: #ffffff;
+    margin: 0 auto;
+    max-width: 52rem;
+    margin-bottom: 50rem;
+
+    &__secondary {
+        opacity: 0.65;
+    }
+}
+
+.stories {
+    max-width: 68.75rem;
+    margin: 0 auto;
+
+    &__separator {
+        height: 50rem;
+        width: 100%;
+    }
+}

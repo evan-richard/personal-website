@@ -19,6 +19,7 @@
     "paths": {
       "@landing/components": ["src/app/landing-page/components/index"],
       "@landing/constants": ["src/app/landing-page/constants/index"],
+      "@landing/models": ["src/app/landing-page/models/index"],
       "@shared/components": ["src/app/shared/components/index"],
       "@shared/constants": ["src/app/shared/constants/index"],
     }

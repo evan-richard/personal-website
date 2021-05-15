@@ -1,0 +1,13 @@
+<section class="story" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="6rem" #containerRef>
+    <article class="story__text"
+      ngClass.lt-md="story__text-{{ storyIndex }}--lt-md"
+      ngClass.gt-sm="story__text-{{ storyIndex }}--gt-sm">
+        <p *ngFor="let paragraph of story.text">{{ paragraph }}</p>
+    </article>
+    <article class="story__image-container"
+      ngClass.lt-md="story__image-container-{{ storyIndex }}--lt-md"
+      ngClass.gt-sm="story__image-container-{{ storyIndex }}--gt-sm">
+        <span class="story__location">{{ story.location }}</span>
+        <img class="story__image" [src]="story.image" [alt]="story.imageAlt">
+    </article>
+</section>

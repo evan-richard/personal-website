@@ -1,5 +1,5 @@
 <section class="container">
-    <article class="text-container" fxLayout="row" fxLayoutAlign="space-evenly">
+    <article class="text-container" ngClass.lt-md="text-container--mobile" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign.gt-sm="space-evenly">
         <div class="text-container__header" fxFlex="25" fxLayout="column" [@fadeAnimationTitle]="loadingState">
             <h1 #headerRef>A brief glimpse into my <span class="text-container__exciting">exciting</span> life.</h1>
             <ion-icon name="arrow-down-outline" class="text-container__arrow-down"></ion-icon>

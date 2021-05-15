@@ -1,0 +1,22 @@
+.story {
+    &__text {
+        width: 35rem;
+        opacity: 0;
+        color: #ffffff;
+    }
+
+    &__image-container {
+        width: 25rem;
+        opacity: 0;
+    }
+
+    &__location {
+        color: #ffffff;
+        opacity: 0.6;
+        float: right;
+    }
+
+    &__image {
+        object-fit: contain;
+    }
+}

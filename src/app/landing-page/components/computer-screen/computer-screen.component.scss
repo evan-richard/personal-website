@@ -1,14 +1,16 @@
 .container {
     cursor: none;
+    position: relative;
     width: 100%;
     height: 100%;
-    padding: 80rem 0;
+    padding: 10rem 0;
 }
 
 .decorations {
     overflow: hidden;
 
     &__design-label {
+        margin-top: 40rem;
         font-size: 20rem;
         opacity: 0.2;
     }
@@ -22,6 +24,7 @@
     }
 
     &__develop-label {
+        margin-bottom: 20rem;
         margin-left: 5rem;
         font-size: 14rem;
         opacity: 0.3;
@@ -30,37 +33,53 @@
 
 .content {
     opacity: 0;
-    position: fixed;
-    margin: auto;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: sticky;
+    margin: 0 auto;
+    bottom: calc(50vh - 15rem);
     max-width: 68.75rem;
     height: 30rem;
 
-    &__name {
-        margin-left: 6rem;
+    &--mobile {
+        bottom: calc(35vh);
     }
 
-    &__desktop {
+    &__name {
+        margin-left: 6rem;
+
+        &--mobile {
+            text-align: center;
+            margin-left: 0rem;
+        }
+    }
+
+    &__computer {
         margin-top: -4rem;
         display: block;
         width: 30rem;
         height: 30rem;
         object-fit: cover;
+
+        &--mobile {
+            margin: 0 auto;
+            width: 70vw;
+        }
     }
 
     &__cursor {
         transform: rotate(-90deg);
         position: absolute;
-        top: 20rem;
-        left: 13rem;
+        top: 24rem;
+        left: 13.5rem;
         opacity: 0;
     }
 
     &__bio {
         margin-top: 3rem;
+
+        &--mobile {
+            margin: 0 auto;
+            width: 90vw;
+        }
     }
 }
 

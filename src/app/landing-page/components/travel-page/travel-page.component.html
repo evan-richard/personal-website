@@ -1,0 +1,15 @@
+<section class="container" #containerRef>
+    <article class="introduction">
+        <h2>I love to travel.</h2>
+        <h3 class="introduction__secondary">Here are some photographs from my adventures.</h3>
+    </article>
+    <article class="stories" fxLayout="column">
+        <app-animated-story [story]="TRAVEL_STORIES.snowboarding"
+          [scrollPosition]="scrollPosition"
+          [storyIndex]="0"></app-animated-story>
+        <span class="stories__separator"></span>
+        <app-animated-story [story]="TRAVEL_STORIES.sweden"
+          [scrollPosition]="scrollPosition"
+          [storyIndex]="1"></app-animated-story>
+    </article>
+</section>
